@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Profile Card</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 260px;
+            padding: 24px;
+            text-align: center;
+        }
+        .card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+        }
+        .card h2 {
+            margin: 16px 0 8px;
+            font-size: 1.25rem;
+            color: #333;
+        }
+        .card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+    </style>
+
+</head>
+<body>
+   <div class = "card">
+    <img id="avatar" src="" alt="Profile Picture">
+    <h2 id = "name">Loading..... </h2>
+    <p><strong>Followers:</strong> <span id="followers">0</span></p>
+
+   </div>
+</body>
+ <script>
+        const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET',requestUrl)
+        xhr.onreadystatechange = function(){
+            // console.log(xhr.readyState);
+            if (xhr.readyState === 4) {
+                const data = JSON.parse(this.responseText)
+           document.getElementById('avatar').src= data.avatar_url;
+           document.getElementById('name').textContent=data.name || data.login ;
+           document.getElementById('followers').textContent = data.followers;
+            }
+        }
+        xhr.send();
+    </script>
+</html>
